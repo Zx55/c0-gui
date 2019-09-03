@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 
 module.exports = {
@@ -8,6 +9,7 @@ module.exports = {
     entry: {
         "bundle": ["./src/index.tsx"],
         "main": ["./src/main.tsx"],
+        "vendor": ['react', 'react-dom'],
     },
 
     output: {
@@ -27,9 +29,9 @@ module.exports = {
                 test: /\.tsx?$/,
                 loader: "ts-loader"
             }, {
-                enforce: "pre",
                 test: /\.js$/,
-                loader: "source-map-loader"
+                loader: "source-map-loader",
+                enforce: "pre",
             }, {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
@@ -47,7 +49,21 @@ module.exports = {
             chunks: ['bundle'],
         }),
         new CleanWebpackPlugin(),
+        new webpack.ExternalsPlugin('commonjs', [
+            'electron'
+        ]),
     ],
 
-    target: "electron-renderer"
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: "vendor",
+                    name: "vendor",
+                },
+            },
+        },
+    },
+
+    target: "electron-renderer",
 };

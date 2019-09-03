@@ -5,8 +5,9 @@
   "main": "./dist/js/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prestart": "webpack --config webpack.dev.js",
-    "start": "electron ."
+    "prestart": "webpack --config webpack.config.js",
+    "start": "electron .",
+    "build": "electron-packager . C0Compiler --win --out build/C0-compiler-win64 --arch=x64 --electron-version=6.0.7 --overwrite --ignore=node_module"
   },
   "author": "",
   "license": "MIT",

@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 
 
 let window: BrowserWindow = null;
@@ -7,6 +7,10 @@ const createWindow = () => {
     window = new BrowserWindow({
         width: 800,
         height: 600,
+        fullscreenable: false,
+        webPreferences: {
+            nodeIntegration: true,
+        },
     });
 
     window.webContents.openDevTools();
@@ -28,4 +32,8 @@ app.on('activate', () => {
     if (window === null) {
         createWindow();
     }
+});
+
+ipcMain.on('test', () => {
+    console.log('test');
 });
