@@ -10,7 +10,7 @@ const createWindow = () => {
     });
 
     window.webContents.openDevTools();
-    window.loadFile('public/index.html');
+    window.loadFile('dist/index.html');
     window.on('closed', () => {
         window = null;
     })
