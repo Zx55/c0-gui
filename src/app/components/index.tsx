@@ -1,10 +1,11 @@
 import * as React from 'react';
+import { BrowserRouter } from 'react-router-dom'
 import { ipcRenderer } from 'electron';
 
 import Layout from 'antd/es/Layout';
 import Sider from './layout/Sider';
 import Header from './layout/Header';
-import Content from './layout/Content';
+import Routes from './Routes';
 
 import './App.css';
 
@@ -17,15 +18,19 @@ export default (props: AppProps) => {
     const [collapsed, setCollapsed] = React.useState(false);
 
     return (
-        <Layout>
-            <Sider collapsed={collapsed} />
+        <BrowserRouter>
             <Layout>
-                <Header
-                    collapsed={collapsed}
-                    setCollapsed={setCollapsed}
-                />
-                <Content />
+                <Sider collapsed={collapsed} />
+                <Layout>
+                    <Header
+                        collapsed={collapsed}
+                        setCollapsed={setCollapsed}
+                    />
+                    <Layout.Content>
+                        <Routes />
+                    </Layout.Content>
+                </Layout>
             </Layout>
-        </Layout>
+        </BrowserRouter>
     );
 };

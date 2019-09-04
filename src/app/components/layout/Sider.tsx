@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 import Layout from 'antd/es/Layout';
 import Menu from 'antd/es/Menu';
@@ -20,10 +21,10 @@ export default (props: SiderProps) => (
             defaultSelectedKeys={['compile']}
         >
             <Menu.Item key='compile'>
-                编译
+                <Link to='/'>编译</Link>
             </Menu.Item>
             <Menu.Item key='settings'>
-                设置
+                <Link to='/settings'>设置</Link>
             </Menu.Item>
         </Menu>
     </Layout.Sider>
