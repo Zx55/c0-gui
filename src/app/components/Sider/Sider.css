@@ -1,0 +1,6 @@
+.sider-top-drag {
+    height: 7%;
+     width: 100%;
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+}

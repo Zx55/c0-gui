@@ -5,7 +5,7 @@ import App from './components';
 
 
 const startApp = () => {
-    ReactDOM.render(<App name='Typescript' />, document.getElementById('root'));
+    ReactDOM.render(<App />, document.getElementById('root'));
 };
 
 startApp();

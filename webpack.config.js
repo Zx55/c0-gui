@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const webpack = require('webpack');
 
 
@@ -9,7 +10,7 @@ module.exports = {
     entry: {
         "bundle": ["./src/app/index.tsx"],
         "main": ["./src/app/main.tsx"],
-        "vendor": ['react', 'react-dom'],
+        "vendor": ['react', 'react-dom', 'react-router-dom'],
     },
 
     output: {
@@ -27,7 +28,23 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                loader: "ts-loader"
+                use: [
+                    {
+                        loader: 'cache-loader',
+                    }, {
+                        loader: 'thread-loader',
+                        options: {
+                            workers: require('os').cpus().length - 1,
+                            poolTimeout: Infinity,
+                        },
+                    }, {
+                        loader: 'ts-loader',
+                        options: {
+                            transpileOnly: true,
+                            happyPackMode: true,
+                        },
+                    },
+                ],
             }, {
                 test: /\.js$/,
                 loader: "source-map-loader",
@@ -40,6 +57,9 @@ module.exports = {
     },
 
     plugins: [
+        //new ForkTsCheckerWebpackPlugin({
+        //    checkSyntacticErrors: true,
+        //}),
         new HtmlWebpackPlugin({
             template: 'public/index.html',
             inject: 'body',

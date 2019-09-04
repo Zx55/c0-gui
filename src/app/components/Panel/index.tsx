@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-
 export default () => (
-    <div>panel</div>
+    <div>
+        <div className='test'>panel</div>
+    </div>
 );

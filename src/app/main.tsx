@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, Menu, ipcMain } from 'electron';
 
 
 const DEV = true;
@@ -6,10 +6,14 @@ const DEV = true;
 let window: BrowserWindow = null;
 
 const createWindow = () => {
+    Menu.setApplicationMenu(null);
+
     window = new BrowserWindow({
         width: 800,
         height: 600,
         fullscreenable: false,
+        resizable: false,
+        frame: false,
         webPreferences: {
             nodeIntegration: true,
         },
@@ -37,4 +41,8 @@ app.on('activate', () => {
     if (window === null) {
         createWindow();
     }
+});
+
+ipcMain.on('exit', () => {
+    window.close();
 });
