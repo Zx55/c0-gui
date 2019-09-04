@@ -2,14 +2,15 @@
     "compilerOptions": {
         "outDir": "./dist/",
         "sourceMap": true,
-        "noImplicitAny": false,
+        "noImplicitAny": true,
+        "allowSyntheticDefaultImports": true,
         "module": "commonjs",
         "target": "es5",
         "jsx": "react"
     },
     "include": [
         "./src/**/*",
-        "src/main.tsx"
+        "src/app/main.tsx"
     ],
     "exclude": [
         "node_modules",

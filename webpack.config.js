@@ -7,8 +7,8 @@ module.exports = {
     mode: "development",
 
     entry: {
-        "bundle": ["./src/index.tsx"],
-        "main": ["./src/main.tsx"],
+        "bundle": ["./src/app/index.tsx"],
+        "main": ["./src/app/main.tsx"],
         "vendor": ['react', 'react-dom'],
     },
 

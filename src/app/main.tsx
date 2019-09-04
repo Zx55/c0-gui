@@ -1,6 +1,8 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 
 
+const DEV = true;
+
 let window: BrowserWindow = null;
 
 const createWindow = () => {
@@ -13,7 +15,10 @@ const createWindow = () => {
         },
     });
 
-    window.webContents.openDevTools();
+    if (DEV) {
+        window.webContents.openDevTools();
+    }
+
     window.loadFile('dist/index.html');
     window.on('closed', () => {
         window = null;
@@ -32,8 +37,4 @@ app.on('activate', () => {
     if (window === null) {
         createWindow();
     }
-});
-
-ipcMain.on('test', () => {
-    console.log('test');
 });
