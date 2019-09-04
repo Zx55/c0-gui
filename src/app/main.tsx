@@ -1,4 +1,6 @@
-import { app, BrowserWindow, Menu, ipcMain } from 'electron';
+import { app, BrowserWindow, Menu, dialog, ipcMain } from 'electron';
+import { homedir } from 'os';
+import * as fs from 'fs';
 
 
 const DEV = true;
@@ -45,4 +47,29 @@ app.on('activate', () => {
 
 ipcMain.on('exit', () => {
     window.close();
+});
+
+ipcMain.on('minimize', () => {
+    window.minimize();
+});
+
+ipcMain.on('open-file-chooser', (event) => {
+    dialog.showOpenDialog({
+        title: '选择c文件',
+        defaultPath: homedir(),
+        filters: [
+            { name: 'c文件', extensions: ['c'] },
+        ],
+        properties: ['openFile'],
+    }).then(({ filePaths }) => {
+        if (filePaths.length > 0) {
+            event.sender.send('after-open-file-chooser', filePaths[0]);
+        }
+    }).catch((err) => console.log(err));
+});
+
+ipcMain.on('read-file', (event, fileName) => {
+    // TODO: if file is deleted
+    // arg1: boolean, arg2: log, arg3: data
+    setTimeout(() => event.sender.send('after-read-file', 'ok'), 3000);
 });

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { BrowserRouter, Redirect } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { ipcRenderer } from 'electron';
 
 import Layout from 'antd/lib/layout';
 import Sider from './Sider';
-import Routes from './Routes';
+import Content from './Content';
 
 import './App.css';
 
@@ -24,17 +24,7 @@ export default () => {
                     handleCollapse={handleCollapse}
                 />
                 <Layout>
-                    <Layout.Content
-                        style={{
-                            margin: 32,
-                            padding: 24,
-                            background: 'white',
-                            minHeight: '85vh',
-                        }}
-                    >
-                        <Redirect exact from='/' to='/compile' />
-                        <Routes />
-                    </Layout.Content>
+                    <Content />
                 </Layout>
             </Layout>
         </BrowserRouter>

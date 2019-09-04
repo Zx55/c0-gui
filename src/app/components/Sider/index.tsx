@@ -6,8 +6,6 @@ import Layout from 'antd/lib/layout';
 import Icon from 'antd/lib/icon';
 import Menu, { ClickParam } from 'antd/lib/menu';
 
-import './Sider.css';
-
 
 export interface SiderProps extends RouteComponentProps {
     collapsed: boolean;
@@ -43,14 +41,19 @@ export default withRouter((props: SiderProps) => {
             collapsed={props.collapsed}
             onCollapse={props.handleCollapse}
         >
-            <div className='sider-top-drag' />
+            <div
+                style={{
+                    height: '7%',
+                    width: '100%',
+                    WebkitUserSelect: 'none',
+                }}
+            />
             <Menu
                 theme='dark'
                 mode='inline'
                 selectedKeys={[menuKey]}
                 onClick={(e) => handleClick(e)}
                 onSelect={(e) => handleSelect(e)}
-                inlineCollapsed={props.collapsed}
             >
                 <Menu.Item key='logo' id='logo'>
                     <Icon type='block' />
@@ -71,10 +74,6 @@ export default withRouter((props: SiderProps) => {
                 <Menu.Item key='manual'>
                     <Icon type='read' />
                     <span>用户手册</span>
-                </Menu.Item>
-                <Menu.Item key='exit'>
-                    <Icon type='export' rotate={180} />
-                    <span>退出</span>
                 </Menu.Item>
             </Menu>
         </Layout.Sider>

@@ -1,0 +1,11 @@
+.drag-region {
+    -webkit-app-region: drag;
+}
+
+i.anticon.anticon-minus.minimize-button:hover {
+    color: black;
+}
+
+i.anticon.anticon-close.close-button:hover {
+    color: black;
+}
