@@ -10,7 +10,15 @@ module.exports = {
     entry: {
         "bundle": ["./src/app/index.tsx"],
         "main": ["./src/app/main.tsx"],
-        "vendor": ['react', 'react-dom', 'react-router-dom'],
+        "vendor": [
+            'react',
+            'react-dom',
+            'react-router-dom',
+            'unstated-next',
+            'classnames',
+            'rc-queue-anim',
+            'rc-animate',
+        ],
     },
 
     output: {
@@ -57,9 +65,9 @@ module.exports = {
     },
 
     plugins: [
-        //new ForkTsCheckerWebpackPlugin({
-        //    checkSyntacticErrors: true,
-        //}),
+        new ForkTsCheckerWebpackPlugin({
+            checkSyntacticErrors: true,
+        }),
         new HtmlWebpackPlugin({
             template: 'public/index.html',
             inject: 'body',

@@ -1,12 +1,13 @@
 import * as React from 'react';
 import cx from 'classnames'
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, IpcRendererEvent } from 'electron';
 import { loadingContainer } from '../../containers';
 
 import Button from 'antd/lib/button';
 import Icon from 'antd/lib/icon';
 import message from 'antd/lib/message';
 import Tooltip from 'antd/lib/tooltip';
+import QueueAnim from 'rc-queue-anim';
 
 import './Panel.css';
 
@@ -18,25 +19,36 @@ export default () => {
     const [fileName, setFileName] = React.useState('');
 
     React.useEffect(() => {
-        ipcRenderer.on('after-open-file-chooser', (event, arg) => {
+        const listener = (event: IpcRendererEvent, arg: any) => {
             setFileName(arg as string);
             message.destroy();
             message.success('文件添加成功');
-        });
+        };
 
-        ipcRenderer.on('after-read-file', (event, arg) => {
-            // Todo: compile the c file.
-            changeLoading(false);
-        });
+        ipcRenderer.on('after-open-file-chooser', listener);
+
+        return () => ipcRenderer.removeListener('after-open-file-chooser', listener);
     }, []);
 
-    const handleDelete = () => {
+    React.useEffect(() => {
+        const listener = (event: IpcRendererEvent, arg: any) => {
+            if (loading) {
+                changeLoading(false);
+            }
+        };
+
+        ipcRenderer.on('after-read-file', listener);
+
+        return () => ipcRenderer.removeListener('after-read-file', listener);
+    }, [loading]);
+
+    const onDelete = () => {
         if (!loading) {
             setFileName('');
         }
     };
 
-    const handleClick = () => {
+    const onCompile = () => {
         if (fileName === '') {
             message.destroy();
             message.error('请先添加文件');
@@ -46,11 +58,20 @@ export default () => {
         }
     };
 
+    const onCancel = () => {
+        // Todo: stop compiling, set cc: Compiler = null; or cc.stop()
+        changeLoading(false);
+    };
+
     return (
-        <div
+        <QueueAnim
+            type='alpha'
+            component='div'
             style={{
                 textAlign: 'center',
             }}
+            duration={600}
+            ease={['easeOutQuart', 'easeInOutQuart']}
         >
             <Button
                 className='upload-button'
@@ -62,6 +83,7 @@ export default () => {
                 }}
                 onClick={() => ipcRenderer.send('open-file-chooser')}
                 disabled={loading}
+                key='upload-button'
             >
                 <Icon
                     type='plus'
@@ -74,6 +96,7 @@ export default () => {
                 style={{
                     marginTop: 12,
                 }}
+                key='filename-bar'
             >
                 {
                     fileName === '' ? '点击添加文件' :
@@ -100,17 +123,17 @@ export default () => {
                                 style={{
                                     marginLeft: 8,
                                 }}
-                                onClick={handleDelete}
+                                onClick={onDelete}
                             />
                         </Tooltip>
                     </div>
                 }
             </div>
-            <div>
+            <div key='compile-button'>
                 <Button
                     type='primary'
                     loading={loading}
-                    onClick={handleClick}
+                    onClick={onCompile}
                     style={{
                         width: '25%',
                         marginTop: 70,
@@ -119,6 +142,21 @@ export default () => {
                     编译
                 </Button>
             </div>
-        </div>
+            {
+                loading &&
+                <div key='cancel-button'>
+                    <Button
+                        type='danger'
+                        onClick={onCancel}
+                        style={{
+                            width: '25%',
+                            marginTop: 10,
+                        }}
+                    >
+                        停止
+                    </Button>
+                </div>
+            }
+        </QueueAnim>
     );
 };

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { ipcRenderer } from 'electron';
 import { loadingContainer } from '../../containers';
 
 import Layout from 'antd/lib/layout';
@@ -39,8 +38,11 @@ export default withRouter((props: SiderProps) => {
             case 'settings':
                 props.history.push('/settings');
                 break;
-            case 'exit':
-                ipcRenderer.send('exit');
+            case 'manual':
+                props.history.push('/manual');
+                break;
+            case 'about':
+                props.history.push('/about');
                 break;
         }
     };
