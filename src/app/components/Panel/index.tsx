@@ -4,6 +4,7 @@ import { loadingContainer } from '../../containers';
 
 import Button from 'antd/lib/button';
 import Icon from 'antd/lib/icon';
+import Progress from 'antd/lib/progress';
 import message from 'antd/lib/message';
 import FileNameBar from './FileNameBar';
 import QueueAnim from 'rc-queue-anim';
@@ -16,10 +17,11 @@ import './Panel.css';
 export default () => {
     const { loading, changeLoading } = loadingContainer.useContainer();
     const [fileName, setFileName] = React.useState('');
+    const [percent, setPercent] = React.useState(0);
 
     React.useEffect(() => {
-        const listener = (event: IpcRendererEvent, arg: any) => {
-            setFileName(arg as string);
+        const listener = (event: IpcRendererEvent, fileName: string) => {
+            setFileName(fileName);
             message.destroy();
             message.success('文件添加成功');
         };
@@ -30,9 +32,22 @@ export default () => {
     }, []);
 
     React.useEffect(() => {
-        const listener = (event: IpcRendererEvent, arg: any) => {
-            if (loading) {
-                changeLoading(false);
+        const listener = (event: IpcRendererEvent, state: boolean, value: string) => {
+            if (!loading) {
+                return;
+            }
+
+            if (state) {
+                // Fixme: see #2
+                const timer = setInterval(() => setPercent(percent => percent + 1), 100);
+                setTimeout(() => {
+                    console.log('compile success');
+                    changeLoading(false);
+                    clearInterval(timer);
+                }, 10300);
+            } else {
+                message.destroy();
+                message.error(value);
             }
         };
 
@@ -53,6 +68,7 @@ export default () => {
             message.error('请先添加文件');
         } else {
             changeLoading(true);
+            setPercent(0);
             ipcRenderer.send('read-file', fileName);
         }
     };
@@ -61,8 +77,6 @@ export default () => {
         // Todo: stop compiling, set cc: Compiler = null; or cc.stop()
         changeLoading(false);
     };
-
-    React.useEffect(() => console.log(loading), [loading]);
 
     return (
         <QueueAnim
@@ -78,7 +92,7 @@ export default () => {
                 className='upload-button'
                 type='dashed'
                 style={{
-                    marginTop: 96,
+                    marginTop: 112,
                     width: 120,
                     height: 120,
                 }}
@@ -100,30 +114,27 @@ export default () => {
             />
             <div key='compile-button'>
                 <Button
-                    type='primary'
-                    loading={loading}
-                    onClick={onCompile}
+                    type={loading ? 'danger' : 'primary'}
+                    onClick={loading ? onCancel : onCompile}
                     style={{
-                        width: '25%',
-                        marginTop: 60,
+                        width: '30%',
+                        marginTop: 45,
                     }}
                 >
-                    编译
+                    {loading ? '停止' : '编译'}
                 </Button>
             </div>
             {
                 loading &&
-                <div key='cancel-button'>
-                    <Button
-                        type='danger'
-                        onClick={onCancel}
-                        style={{
-                            width: '25%',
-                            marginTop: 10,
-                        }}
-                    >
-                        停止
-                    </Button>
+                <div
+                    key='progress-bar'
+                    style={{
+                        margin: '0 auto',
+                        paddingTop: 16,
+                        width: '60%',
+                    }}
+                >
+                    <Progress percent={percent} />
                 </div>
             }
         </QueueAnim>

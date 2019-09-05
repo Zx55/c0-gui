@@ -10,7 +10,7 @@
     },
     "include": [
         "./src/**/*",
-        "src/app/main.tsx"
+        "src/app/app.tsx"
     ],
     "exclude": [
         "node_modules",

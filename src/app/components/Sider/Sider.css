@@ -1,0 +1,22 @@
+aside.ant-layout-sider.ant-layout-sider-dark.ant-layout-sider-has-trigger {
+    width: 160px !important;
+    min-width: 160px !important;
+    max-width: 160px !important;
+    flex: 0 0 160px !important;
+}
+
+aside.ant-layout-sider.ant-layout-sider-dark.ant-layout-sider-collapsed.ant-layout-sider-has-trigger {
+    width: 80px !important;
+    min-width: 80px !important;
+    max-width: 80px !important;
+    flex: 0 0 80px !important;
+}
+
+.ant-layout-sider-trigger {
+    width: 80px !important;
+    background: #001529 !important;
+}
+
+i.anticon.anticon-left {
+    padding-left: 73px;
+}

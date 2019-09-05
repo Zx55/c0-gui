@@ -6,6 +6,8 @@ import Layout from 'antd/lib/layout';
 import Icon from 'antd/lib/icon';
 import Menu, { ClickParam } from 'antd/lib/menu';
 
+import './Sider.css';
+
 
 export interface SiderProps extends RouteComponentProps {
     collapsed: boolean;

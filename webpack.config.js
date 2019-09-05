@@ -9,7 +9,7 @@ module.exports = {
 
     entry: {
         "bundle": ["./src/app/index.tsx"],
-        "main": ["./src/app/main.tsx"],
+        "main": ["./src/app/app.tsx"],
         "vendor": [
             'react',
             'react-dom',

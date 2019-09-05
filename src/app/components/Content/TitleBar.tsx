@@ -12,7 +12,7 @@ export default () => {
             style={{
                 position: 'fixed',
                 top: 0,
-                left: '25%',
+                left: '22.8%',
                 height: '7%',
                 width: '100%',
             }}
@@ -22,7 +22,7 @@ export default () => {
                 style={{
                     float: 'left',
                     height: '100%',
-                    width: '68%',
+                    width: '69%',
                 }}
             />
             <div
@@ -30,7 +30,7 @@ export default () => {
                 style={{
                     float: 'left',
                     height: '100%',
-                    width: '5%',
+                    width: '6%',
                 }}
             >
                 <Tooltip placement='bottom' title='最小化'>

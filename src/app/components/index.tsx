@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { ipcRenderer } from 'electron';
 import { loadingContainer } from '../containers';
 
 import Layout from 'antd/lib/layout';

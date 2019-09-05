@@ -5,7 +5,6 @@ import { createContainer } from 'unstated-next';
 const useLoading = (initalLoading = false) => {
     const [loading, setLoading] = React.useState(initalLoading);
     const changeLoading = (loading: boolean) => {
-        console.log('change loading to ', loading);
         setLoading(loading);
     };
 
