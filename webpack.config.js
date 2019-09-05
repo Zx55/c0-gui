@@ -65,9 +65,9 @@ module.exports = {
     },
 
     plugins: [
-        new ForkTsCheckerWebpackPlugin({
-            checkSyntacticErrors: true,
-        }),
+        //new ForkTsCheckerWebpackPlugin({
+        //   checkSyntacticErrors: true,
+        //}),
         new HtmlWebpackPlugin({
             template: 'public/index.html',
             inject: 'body',

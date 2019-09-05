@@ -1,3 +1,7 @@
-.anticon.anticon-delete.delete-file-button-loading:hover {
+.delete-file-button:hover {
+    cursor: pointer;
+}
+
+.delete-file-button-loading:hover {
     cursor: not-allowed;
 }

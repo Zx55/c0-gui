@@ -1,12 +1,11 @@
 import * as React from 'react';
-import cx from 'classnames'
 import { ipcRenderer, IpcRendererEvent } from 'electron';
 import { loadingContainer } from '../../containers';
 
 import Button from 'antd/lib/button';
 import Icon from 'antd/lib/icon';
 import message from 'antd/lib/message';
-import Tooltip from 'antd/lib/tooltip';
+import FileNameBar from './FileNameBar';
 import QueueAnim from 'rc-queue-anim';
 
 import './Panel.css';
@@ -63,6 +62,8 @@ export default () => {
         changeLoading(false);
     };
 
+    React.useEffect(() => console.log(loading), [loading]);
+
     return (
         <QueueAnim
             type='alpha'
@@ -92,43 +93,11 @@ export default () => {
                     }}
                 />
             </Button>
-            <div
-                style={{
-                    marginTop: 12,
-                }}
+            <FileNameBar
+                fileName={fileName}
+                onDelete={onDelete}
                 key='filename-bar'
-            >
-                {
-                    fileName === '' ? '点击添加文件' :
-                    <div>
-                        <Icon
-                            type='paper-clip'
-                            style={{
-                                marginRight: 8,
-                            }}
-                        />
-                        <Tooltip title={fileName}>
-                            <span>
-                                {fileName.split('\\')[fileName.split('\\').length - 1]}
-                            </span>
-                        </Tooltip>
-                        <Tooltip title='删除'>
-                            <Icon
-                                className={cx(
-                                    loading
-                                        ? 'delete-file-button-loading'
-                                        : 'delete-file-button'
-                                )}
-                                type='delete'
-                                style={{
-                                    marginLeft: 8,
-                                }}
-                                onClick={onDelete}
-                            />
-                        </Tooltip>
-                    </div>
-                }
-            </div>
+            />
             <div key='compile-button'>
                 <Button
                     type='primary'
@@ -136,7 +105,7 @@ export default () => {
                     onClick={onCompile}
                     style={{
                         width: '25%',
-                        marginTop: 70,
+                        marginTop: 60,
                     }}
                 >
                     编译
