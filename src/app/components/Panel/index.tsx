@@ -1,6 +1,7 @@
 import * as React from 'react';
 import cx from 'classnames'
 import { ipcRenderer } from 'electron';
+import { loadingContainer } from '../../containers';
 
 import Button from 'antd/lib/button';
 import Icon from 'antd/lib/icon';
@@ -9,8 +10,11 @@ import Tooltip from 'antd/lib/tooltip';
 
 import './Panel.css';
 
+
+// TODO: add progress bar, see https://ant.design/components/progress-cn/
+
 export default () => {
-    const [loading, setLoading] = React.useState(false);
+    const { loading, changeLoading } = loadingContainer.useContainer();
     const [fileName, setFileName] = React.useState('');
 
     React.useEffect(() => {
@@ -22,7 +26,7 @@ export default () => {
 
         ipcRenderer.on('after-read-file', (event, arg) => {
             // Todo: compile the c file.
-            setLoading(false);
+            changeLoading(false);
         });
     }, []);
 
@@ -37,7 +41,7 @@ export default () => {
             message.destroy();
             message.error('请先添加文件');
         } else {
-            setLoading(true);
+            changeLoading(true);
             ipcRenderer.send('read-file', fileName);
         }
     };
@@ -109,7 +113,7 @@ export default () => {
                     onClick={handleClick}
                     style={{
                         width: '25%',
-                        marginTop: '15%',
+                        marginTop: 70,
                     }}
                 >
                     编译

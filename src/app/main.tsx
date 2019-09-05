@@ -71,5 +71,5 @@ ipcMain.on('open-file-chooser', (event) => {
 ipcMain.on('read-file', (event, fileName) => {
     // TODO: if file is deleted
     // arg1: boolean, arg2: log, arg3: data
-    setTimeout(() => event.sender.send('after-read-file', 'ok'), 3000);
+    setTimeout(() => event.sender.send('after-read-file', 'ok'), 10000);
 });

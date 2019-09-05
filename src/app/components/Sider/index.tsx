@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { ipcRenderer } from 'electron';
+import { loadingContainer } from '../../containers';
 
 import Layout from 'antd/lib/layout';
 import Icon from 'antd/lib/icon';
@@ -13,15 +14,24 @@ export interface SiderProps extends RouteComponentProps {
 };
 
 export default withRouter((props: SiderProps) => {
+    const { loading } = loadingContainer.useContainer();
     const [menuKey, setKey] = React.useState('compile');
 
     const handleClick = (e: ClickParam) => {
+        if (loading) {
+            return;
+        }
+
         if (e.key !== 'logo' && e.key !== 'exit') {
             setKey(e.key);
         }
     };
 
     const handleSelect = (e: ClickParam) => {
+        if (loading) {
+            return;
+        }
+
         switch (e.key) {
             case 'compile':
                 props.history.push('/compile');
@@ -55,25 +65,25 @@ export default withRouter((props: SiderProps) => {
                 onClick={(e) => handleClick(e)}
                 onSelect={(e) => handleSelect(e)}
             >
-                <Menu.Item key='logo' id='logo'>
+                <Menu.Item key='logo' disabled={loading}>
                     <Icon type='block' />
                     <span>C0 Compiler</span>
                 </Menu.Item>
-                <Menu.Item key='compile'>
+                <Menu.Item key='compile' disabled={loading}>
                     <Icon type='build' />
                     <span>编译</span>
                 </Menu.Item>
-                <Menu.Item key='settings'>
+                <Menu.Item key='settings' disabled={loading}>
                     <Icon type='setting' />
                     <span>设置</span>
                 </Menu.Item>
-                <Menu.Item key='about'>
-                    <Icon type='home' />
-                    <span>关于</span>
-                </Menu.Item>
-                <Menu.Item key='manual'>
+                <Menu.Item key='manual' disabled={loading}>
                     <Icon type='read' />
                     <span>用户手册</span>
+                </Menu.Item>
+                <Menu.Item key='about' disabled={loading}>
+                    <Icon type='home' />
+                    <span>关于</span>
                 </Menu.Item>
             </Menu>
         </Layout.Sider>

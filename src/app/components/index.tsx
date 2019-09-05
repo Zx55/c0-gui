@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom'
 import { ipcRenderer } from 'electron';
+import { loadingContainer } from '../containers';
 
 import Layout from 'antd/lib/layout';
 import Sider from './Sider';
@@ -18,15 +19,17 @@ export default () => {
 
     return (
         <BrowserRouter>
-            <Layout style={{ minHeight: '100vh' }}>
-                <Sider
-                    collapsed={collapsed}
-                    handleCollapse={handleCollapse}
-                />
-                <Layout>
-                    <Content />
+            <loadingContainer.Provider initialState={false}>
+                <Layout style={{ minHeight: '100vh' }}>
+                    <Sider
+                        collapsed={collapsed}
+                        handleCollapse={handleCollapse}
+                    />
+                    <Layout>
+                        <Content />
+                    </Layout>
                 </Layout>
-            </Layout>
+            </loadingContainer.Provider>
         </BrowserRouter>
     );
 };
