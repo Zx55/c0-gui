@@ -1,22 +1,61 @@
-aside.ant-layout-sider.ant-layout-sider-dark.ant-layout-sider-has-trigger {
+aside.ant-layout-sider.ant-layout-sider-dark {
     width: 160px !important;
     min-width: 160px !important;
     max-width: 160px !important;
     flex: 0 0 160px !important;
 }
 
-aside.ant-layout-sider.ant-layout-sider-dark.ant-layout-sider-collapsed.ant-layout-sider-has-trigger {
+aside.ant-layout-sider.ant-layout-sider-dark.ant-layout-sider-collapsed {
     width: 80px !important;
     min-width: 80px !important;
     max-width: 80px !important;
     flex: 0 0 80px !important;
 }
 
-.ant-layout-sider-trigger {
-    width: 80px !important;
-    background: #001529 !important;
+.trigger {
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    height: 48px;
+    color: white;
+    line-height: 48px;
+    text-align: center;
+    background: red;
+    font-size: 18px;
+    background: #001529;
+    width: 160px;
+    min-width: 160px;
+    width: 160px;
+    flex: 0 0 160px;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
 }
 
-i.anticon.anticon-left {
-    padding-left: 73px;
+.trigger:hover {
+    cursor: pointer;
+    background: #1890ff;
+}
+
+.trigger-collapsed {
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    height: 48px;
+    color: white;
+    line-height: 48px;
+    text-align: center;
+    background: red;
+    font-size: 18px;
+    background: #001529;
+    width: 80px;
+    min-width: 80px;
+    width: 80px;
+    flex: 0 0 80px;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+}
+
+.trigger-collapsed:hover {
+    cursor: pointer;
+    background: #1890ff;
 }

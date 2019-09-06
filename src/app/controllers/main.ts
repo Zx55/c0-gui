@@ -45,7 +45,7 @@ export default () => {
         }
     });
 
-    ipcMain.on('stop-read-file', () => {
-        // msg queue
-    });
+    //ipcMain.on('stop-read-file', () => {
+    //    msg queue
+    //});
 };

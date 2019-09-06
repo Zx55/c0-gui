@@ -12,8 +12,8 @@ import './App.css';
 export default () => {
     const [collapsed, setCollapsed] = React.useState(false);
 
-    const handleCollapse = (collapsed: boolean) => {
-        setCollapsed(collapsed);
+    const onCollapse = () => {
+        setCollapsed(collapsed => !collapsed);
     };
 
     return (
@@ -22,7 +22,7 @@ export default () => {
                 <Layout style={{ minHeight: '100vh' }}>
                     <Sider
                         collapsed={collapsed}
-                        handleCollapse={handleCollapse}
+                        onCollapse={onCollapse}
                     />
                     <Layout>
                         <Content />

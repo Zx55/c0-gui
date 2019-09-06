@@ -117,7 +117,7 @@ export default () => {
                     type={loading ? 'danger' : 'primary'}
                     onClick={loading ? onCancel : onCompile}
                     style={{
-                        width: '30%',
+                        width: '25%',
                         marginTop: 45,
                     }}
                 >

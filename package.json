@@ -14,7 +14,6 @@
   "devDependencies": {
     "@types/classnames": "^2.2.9",
     "@types/node": "^12.7.3",
-    "@types/observe-js": "^0.5.30",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^4.3.5",
@@ -39,7 +38,6 @@
   "dependencies": {
     "antd": "^3.23.1",
     "classnames": "^2.2.6",
-    "observe-js": "^0.5.7",
     "rc-animate": "^2.10.0",
     "rc-queue-anim": "^1.8.2",
     "react": "^16.9.0",

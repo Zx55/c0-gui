@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import cx from 'classnames';
 import { loadingContainer } from '../../containers';
 
 import Layout from 'antd/lib/layout';
@@ -11,7 +12,7 @@ import './Sider.css';
 
 export interface SiderProps extends RouteComponentProps {
     collapsed: boolean;
-    handleCollapse: (collapsed: boolean) => void;
+    onCollapse: () => void;
 };
 
 export default withRouter((props: SiderProps) => {
@@ -53,7 +54,7 @@ export default withRouter((props: SiderProps) => {
         <Layout.Sider
             collapsible
             collapsed={props.collapsed}
-            onCollapse={props.handleCollapse}
+            trigger={null}
         >
             <div
                 style={{
@@ -90,6 +91,14 @@ export default withRouter((props: SiderProps) => {
                     <span>关于</span>
                 </Menu.Item>
             </Menu>
+            <div
+                className={cx('trigger', props.collapsed && 'trigger-collapsed')}
+                onClick={props.onCollapse}
+            >
+                <Icon
+                    type={props.collapsed ? 'menu-unfold' : 'menu-fold'}
+                />
+            </div>
         </Layout.Sider>
     );
 });
