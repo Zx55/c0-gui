@@ -1,16 +1,18 @@
+const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const webpack = require('webpack');
 
+
+const distPath = path.resolve(__dirname, '../dist');
+const sourcePath = path.resolve(__dirname, '../src');
 
 module.exports = {
-    mode: "development",
-
     entry: {
-        "bundle": ["./src/app/index.tsx"],
-        "main": ["./src/app/app.tsx"],
-        "vendor": [
+        'bundle': [path.resolve(sourcePath, './app/index.tsx')],
+        'main': [path.resolve(sourcePath, './app/app.tsx')],
+        'vendor': [
             'react',
             'react-dom',
             'react-router-dom',
@@ -22,14 +24,14 @@ module.exports = {
     },
 
     output: {
-        filename: "js/[name].js",
-        path: __dirname + "/dist"
+        filename: 'js/[name].js',
+        path: distPath,
     },
 
-    devtool: "source-map",
+    devtool: 'source-map',
 
     resolve: {
-        extensions: [".ts", ".tsx", ".js", ".json"]
+        extensions: ['.ts', '.tsx', '.js', '.json']
     },
 
     module: {
@@ -55,8 +57,8 @@ module.exports = {
                 ],
             }, {
                 test: /\.js$/,
-                loader: "source-map-loader",
-                enforce: "pre",
+                loader: 'source-map-loader',
+                enforce: 'pre',
             }, {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
@@ -65,9 +67,9 @@ module.exports = {
     },
 
     plugins: [
-        //new ForkTsCheckerWebpackPlugin({
-        //   checkSyntacticErrors: true,
-        //}),
+        new ForkTsCheckerWebpackPlugin({
+           checkSyntacticErrors: true,
+        }),
         new HtmlWebpackPlugin({
             template: 'public/index.html',
             inject: 'body',
@@ -86,12 +88,12 @@ module.exports = {
         splitChunks: {
             cacheGroups: {
                 vendor: {
-                    test: "vendor",
-                    name: "vendor",
+                    test: 'vendor',
+                    name: 'vendor',
                 },
             },
         },
     },
 
-    target: "electron-renderer",
+    target: 'electron-renderer',
 };
