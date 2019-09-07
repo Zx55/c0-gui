@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "jsx": "react",
+        "allowSyntheticDefaultImports": true,
+        "allowJs": false,
+        "noUnusedLocals": true,
+        "noImplicitAny": true,
+        "experimentalDecorators": true
+    },
+    "include": [
+        "../src/**/*",
+        "../src/app/app.tsx"
+    ],
+    "exclude": [
+        "../node_modules",
+        "../dist"
+    ]
+}

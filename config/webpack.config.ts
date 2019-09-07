@@ -1,17 +1,20 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+import { resolve } from 'path';
+import { cpus } from 'os';
+import { Configuration } from 'webpack';
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 
-const distPath = path.resolve(__dirname, '../dist');
-const sourcePath = path.resolve(__dirname, '../src');
+const distPath = resolve(__dirname, '../dist');
+const sourcePath = resolve(__dirname, '../src');
+const configPath = resolve(__dirname);
 
-module.exports = {
+const config: Configuration = {
+    mode: 'development',
     entry: {
-        'bundle': [path.resolve(sourcePath, './app/index.tsx')],
-        'main': [path.resolve(sourcePath, './app/app.tsx')],
+        'bundle': [resolve(sourcePath, './app/index.tsx')],
+        'main': [resolve(sourcePath, './app/app.tsx')],
         'vendor': [
             'react',
             'react-dom',
@@ -22,18 +25,14 @@ module.exports = {
             'rc-animate',
         ],
     },
-
     output: {
         filename: 'js/[name].js',
         path: distPath,
     },
-
     devtool: 'source-map',
-
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json']
     },
-
     module: {
         rules: [
             {
@@ -44,7 +43,7 @@ module.exports = {
                     }, {
                         loader: 'thread-loader',
                         options: {
-                            workers: require('os').cpus().length - 1,
+                            workers: cpus().length - 1,
                             poolTimeout: Infinity,
                         },
                     }, {
@@ -52,6 +51,7 @@ module.exports = {
                         options: {
                             transpileOnly: true,
                             happyPackMode: true,
+                            configFile: resolve(configPath, './tsconfig.json'),
                         },
                     },
                 ],
@@ -65,10 +65,10 @@ module.exports = {
             }
         ]
     },
-
     plugins: [
         new ForkTsCheckerWebpackPlugin({
-           checkSyntacticErrors: true,
+            tsconfig: resolve(configPath, './tsconfig.json'),
+            checkSyntacticErrors: true,
         }),
         new HtmlWebpackPlugin({
             template: 'public/index.html',
@@ -79,11 +79,7 @@ module.exports = {
             chunks: ['bundle'],
         }),
         new CleanWebpackPlugin(),
-        new webpack.ExternalsPlugin('commonjs', [
-            'electron'
-        ]),
     ],
-
     optimization: {
         splitChunks: {
             cacheGroups: {
@@ -94,6 +90,7 @@ module.exports = {
             },
         },
     },
-
     target: 'electron-renderer',
 };
+
+export default config;
