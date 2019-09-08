@@ -44,8 +44,4 @@ export default () => {
             event.sender.send(channel, false, '文件不存在');
         }
     });
-
-    //ipcMain.on('stop-read-file', () => {
-    //    msg queue
-    //});
 };

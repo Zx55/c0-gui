@@ -9,7 +9,7 @@ A c language compiler with GUI based on TypeScript, Electron, React and antd.
 cnpm install # or npm install
 
 yarn packapp # or npm run packapp
-yarn startapp # or npm run startapp
+yarn start # or npm run start
 ```
 
 ## Run CLI
