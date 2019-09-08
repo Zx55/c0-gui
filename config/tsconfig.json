@@ -9,11 +9,7 @@
         "allowJs": false,
         "noUnusedLocals": true,
         "noImplicitAny": true,
-        "experimentalDecorators": true,
-        "types": ["node", "jest"],
-        "typeRoots": [
-            "../node_modules/@types"
-        ]
+        "experimentalDecorators": true
     },
     "include": [
         "../src/**/*.ts",
