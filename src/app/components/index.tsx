@@ -5,7 +5,6 @@ import { loadingContainer } from '../containers';
 import Layout from 'antd/lib/layout';
 import Sider from './Sider';
 import Content from './Content';
-
 import './App.css';
 
 

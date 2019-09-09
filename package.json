@@ -5,7 +5,7 @@
   "description": "A c language compiler with GUI based on TypeScript, Electron, React and antd.",
   "main": "./dist/js/main.js",
   "scripts": {
-    "build": "electron-packager . C0Compiler --platform=win32 --arch=x64 --out=./build --overwrite --ignore=node_modules",
+    "build": "electron-packager . C0Compiler --platform=win32 --arch=x64 --out=./build --asar --overwrite --ignore=node_modules --ignore=build --ignore=coverage --ignore=tests --ignore=.gitignore --ignore=yarn-error.log --ignore=config --ignore=README.md --ignore=LICENSE",
     "cli": "ts-node ./src/c0/c0-cli",
     "packapp": "webpack --config ./config/webpack.config.ts",
     "start": "electron .",
