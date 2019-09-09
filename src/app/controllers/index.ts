@@ -3,7 +3,7 @@ import startIpcMain from './main';
 
 export let window: BrowserWindow = null;
 
-const createWindow = (env: string) => {
+const createWindow = (env?: string) => {
     Menu.setApplicationMenu(null);
 
     window = new BrowserWindow({
@@ -17,7 +17,8 @@ const createWindow = (env: string) => {
         },
     });
 
-    if (env === 'dev') {
+    env = env ? env : process.env.NODE_ENV;
+    if (env === 'development') {
         window.webContents.openDevTools();
     }
 
@@ -27,7 +28,7 @@ const createWindow = (env: string) => {
     })
 };
 
-export default (env: string = 'dev') => {
+export default (env?: string) => {
     app.once('ready', () => createWindow(env));
 
     app.once('window-all-closed', () => {
