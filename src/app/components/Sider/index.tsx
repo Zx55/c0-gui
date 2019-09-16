@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import cx from 'classnames';
 import { loadingContainer } from '../../containers';
@@ -17,7 +17,7 @@ export interface SiderProps extends RouteComponentProps {
 
 export default withRouter((props: SiderProps) => {
     const { loading } = loadingContainer.useContainer();
-    const [menuKey, setKey] = React.useState('compile');
+    const [menuKey, setKey] = useState('compile');
 
     const handleClick = (e: ClickParam) => {
         if (loading) {

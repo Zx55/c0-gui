@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { loadingContainer } from '../containers';
 
@@ -9,7 +9,7 @@ import './App.css';
 
 
 export default () => {
-    const [collapsed, setCollapsed] = React.useState(false);
+    const [collapsed, setCollapsed] = useState(false);
 
     const onCollapse = () => {
         setCollapsed(collapsed => !collapsed);

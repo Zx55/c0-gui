@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ipcRenderer, IpcRendererEvent } from 'electron';
 import { loadingContainer } from '../../containers';
 
@@ -11,15 +11,14 @@ import QueueAnim from 'rc-queue-anim';
 
 import './Panel.css';
 
-
 // TODO: add progress bar, see https://ant.design/components/progress-cn/
 
 export default () => {
     const { loading, changeLoading } = loadingContainer.useContainer();
-    const [fileName, setFileName] = React.useState('');
-    const [percent, setPercent] = React.useState(0);
+    const [fileName, setFileName] = useState('');
+    const [percent, setPercent] = useState(0);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const listener = (event: IpcRendererEvent, fileName: string) => {
             setFileName(fileName);
             message.destroy();
@@ -31,7 +30,7 @@ export default () => {
         return () => ipcRenderer.removeListener('after-open-file-chooser', listener);
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const listener = (event: IpcRendererEvent, state: boolean, value: string) => {
             if (!loading) {
                 return;
