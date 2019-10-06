@@ -8,7 +8,7 @@ A c language compiler with GUI based on TypeScript, Electron, React and antd.
 # Install dependencies
 cnpm install # or npm install
 
-yarn build # or npm run packapp
+yarn build # or npm run build
 yarn start # or npm run start
 ```
 

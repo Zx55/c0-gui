@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import HashSet from './hashset';
 
 
 export const readCodefromFile = (fileName: string): string => {
@@ -14,3 +15,5 @@ export const readCodefromFile = (fileName: string): string => {
         return 'file not exist';
     }
 };
+
+export { HashSet };

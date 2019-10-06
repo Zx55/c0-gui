@@ -1,0 +1,18 @@
+{
+    "globals": {
+        "ts-jest": {
+            "tsConfig": "./config/tsconfig.test.json"
+        }
+    },
+    "preset": "ts-jest",
+    "testMatch": [
+        "**/tests/*.test.ts",
+        "**/tests/*.test.tsx"
+    ],
+    "rootDir": "..",
+    "testEnvironment": "node",
+    "moduleDirectories": [
+        "node_modules",
+        "src"
+    ]
+}

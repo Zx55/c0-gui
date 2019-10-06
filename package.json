@@ -9,7 +9,7 @@
     "cli": "cross-env TS_NODE_PROJECT=config/tsconfig.json ts-node ./src/c0/cli/index.ts",
     "release": "electron-packager . C0Compiler --platform=win32 --arch=x64 --out=./release --asar --overwrite --ignore=node_modules --ignore=build --ignore=coverage --ignore=tests --ignore=.gitignore --ignore=yarn-error.log --ignore=config --ignore=README.md --ignore=LICENSE",
     "start": "electron .",
-    "test": "jest --coverage --verbose"
+    "test": "jest --coverage --verbose --config ./config/jest.config.json"
   },
   "author": "Zx55",
   "license": "MIT",
@@ -55,10 +55,6 @@
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
     "unstated-next": "^1.1.0"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",

@@ -10,13 +10,12 @@
         "noUnusedLocals": true,
         "noImplicitAny": true,
         "experimentalDecorators": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "downlevelIteration": true
     },
     "include": [
         "../src/**/*.ts",
-        "../src/**/*.tsx",
-        "../tests/*.test.ts",
-        "../tests/*.spec.ts"
+        "../src/**/*.tsx"
     ],
     "exclude": [
         "../coverage",
