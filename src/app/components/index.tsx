@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { loadingContainer } from '../containers';
+import { IntlProvider } from 'react-intl';
+import { loadingContainer, localeContainer } from '../containers';
+import zh_CH from '../../locale/zh_CH';
+import en_US from '../../locale/en_US';
 
 import Layout from 'antd/lib/layout';
 import Sider from './Sider';
@@ -9,24 +12,26 @@ import './App.css';
 
 
 export default () => {
-    const [collapsed, setCollapsed] = useState(false);
-
-    const onCollapse = () => {
-        setCollapsed(collapsed => !collapsed);
+    const { locale } = localeContainer.useContainer();
+    const msgs = {
+        'zh': zh_CH,
+        'en': en_US,
     };
 
     return (
         <BrowserRouter>
             <loadingContainer.Provider initialState={false}>
-                <Layout style={{ minHeight: '100vh' }}>
-                    <Sider
-                        collapsed={collapsed}
-                        onCollapse={onCollapse}
-                    />
-                    <Layout>
-                        <Content />
+                <IntlProvider
+                    locale={locale}
+                    messages={msgs[locale]}
+                >
+                    <Layout style={{ minHeight: '100vh' }}>
+                        <Sider />
+                        <Layout>
+                            <Content />
+                        </Layout>
                     </Layout>
-                </Layout>
+                </IntlProvider>
             </loadingContainer.Provider>
         </BrowserRouter>
     );

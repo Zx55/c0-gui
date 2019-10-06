@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import useRouter from 'use-react-router';
 import cx from 'classnames';
+import { FormattedMessage  } from 'react-intl';
 import { loadingContainer } from '../../containers';
 
 import Layout from 'antd/lib/layout';
@@ -10,14 +11,15 @@ import Menu, { ClickParam } from 'antd/lib/menu';
 import './Sider.css';
 
 
-export interface SiderProps extends RouteComponentProps {
-    collapsed: boolean;
-    onCollapse: () => void;
-};
-
-export default withRouter((props: SiderProps) => {
+export default () => {
     const { loading } = loadingContainer.useContainer();
+    const { history } = useRouter();
     const [menuKey, setKey] = useState('compile');
+    const [collapsed, setCollapsed] = useState(false);
+
+    const onCollapse = () => {
+        setCollapsed(collapsed => !collapsed);
+    }
 
     const handleClick = (e: ClickParam) => {
         if (loading) {
@@ -36,16 +38,16 @@ export default withRouter((props: SiderProps) => {
 
         switch (e.key) {
             case 'compile':
-                props.history.push('/compile');
+                history.push('/compile');
                 break;
             case 'settings':
-                props.history.push('/settings');
+                history.push('/settings');
                 break;
             case 'manual':
-                props.history.push('/manual');
+                history.push('/manual');
                 break;
             case 'about':
-                props.history.push('/about');
+                history.push('/about');
                 break;
         }
     };
@@ -53,7 +55,7 @@ export default withRouter((props: SiderProps) => {
     return (
         <Layout.Sider
             collapsible
-            collapsed={props.collapsed}
+            collapsed={collapsed}
             trigger={null}
         >
             <div
@@ -72,33 +74,48 @@ export default withRouter((props: SiderProps) => {
             >
                 <Menu.Item key='logo' disabled={loading}>
                     <Icon type='block' />
-                    <span>C0 Compiler</span>
+                    <FormattedMessage
+                        id='app.sider.title'
+                        tagName='span'
+                    />
                 </Menu.Item>
                 <Menu.Item key='compile' disabled={loading}>
                     <Icon type='build' />
-                    <span>编译</span>
+                    <FormattedMessage
+                        id='app.sider.compiling'
+                        tagName='span'
+                    />
                 </Menu.Item>
                 <Menu.Item key='settings' disabled={loading}>
                     <Icon type='setting' />
-                    <span>设置</span>
+                    <FormattedMessage
+                        id='app.sider.settings'
+                        tagName='span'
+                    />
                 </Menu.Item>
                 <Menu.Item key='manual' disabled={loading}>
                     <Icon type='read' />
-                    <span>用户手册</span>
+                    <FormattedMessage
+                        id='app.sider.manual'
+                        tagName='span'
+                    />
                 </Menu.Item>
                 <Menu.Item key='about' disabled={loading}>
                     <Icon type='home' />
-                    <span>关于</span>
+                    <FormattedMessage
+                        id='app.sider.about'
+                        tagName='span'
+                    />
                 </Menu.Item>
             </Menu>
             <div
-                className={cx('trigger', props.collapsed && 'trigger-collapsed')}
-                onClick={props.onCollapse}
+                className={cx('trigger', collapsed && 'trigger-collapsed')}
+                onClick={onCollapse}
             >
                 <Icon
-                    type={props.collapsed ? 'menu-unfold' : 'menu-fold'}
+                    type={collapsed ? 'menu-unfold' : 'menu-fold'}
                 />
             </div>
         </Layout.Sider>
     );
-});
+};

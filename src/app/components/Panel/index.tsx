@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ipcRenderer, IpcRendererEvent } from 'electron';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { loadingContainer } from '../../containers';
 
 import Button from 'antd/lib/button';
@@ -15,6 +16,8 @@ import './Panel.css';
 
 export default () => {
     const { loading, changeLoading } = loadingContainer.useContainer();
+    const intl = useIntl();
+
     const [fileName, setFileName] = useState('');
     const [percent, setPercent] = useState(0);
 
@@ -22,7 +25,9 @@ export default () => {
         const listener = (event: IpcRendererEvent, fileName: string) => {
             setFileName(fileName);
             message.destroy();
-            message.success('文件添加成功');
+            message.success(intl.formatMessage({
+                id: 'app.compiling.addFile.success'
+            }));
         };
 
         ipcRenderer.on('after-open-file-chooser', listener);
@@ -40,7 +45,6 @@ export default () => {
                 // Fixme: see #2
                 const timer = setInterval(() => setPercent(percent => percent + 1), 100);
                 setTimeout(() => {
-                    console.log('compile success');
                     changeLoading(false);
                     clearInterval(timer);
                 }, 10300);
@@ -64,7 +68,9 @@ export default () => {
     const onCompile = () => {
         if (fileName === '') {
             message.destroy();
-            message.error('请先添加文件');
+            message.error(intl.formatMessage({
+                id: 'app.compiling.start.error.empty'
+            }));
         } else {
             changeLoading(true);
             setPercent(0);
@@ -120,7 +126,11 @@ export default () => {
                         marginTop: 45,
                     }}
                 >
-                    {loading ? '停止' : '编译'}
+                    {
+                        loading ?
+                        <FormattedMessage id='app.compiling.stop' /> :
+                        <FormattedMessage id='app.compiling.start' />
+                    }
                 </Button>
             </div>
             {

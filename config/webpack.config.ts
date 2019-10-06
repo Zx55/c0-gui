@@ -66,10 +66,10 @@ const config: Configuration = {
         ]
     },
     plugins: [
-        new ForkTsCheckerWebpackPlugin({
-            tsconfig: resolve(configPath, './tsconfig.json'),
-            checkSyntacticErrors: true,
-        }),
+        //new ForkTsCheckerWebpackPlugin({
+        //    tsconfig: resolve(configPath, './tsconfig.json'),
+        //    checkSyntacticErrors: true,
+        //}),
         new HtmlWebpackPlugin({
             template: 'public/index.html',
             inject: 'body',

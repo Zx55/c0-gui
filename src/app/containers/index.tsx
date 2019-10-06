@@ -1,14 +1,5 @@
-import { useState } from 'react';
-import { createContainer } from 'unstated-next';
+import loadingContainer from './loadingContainer';
+import localeContainer from './localeContainer';
 
 
-const useLoading = (initalLoading = false) => {
-    const [loading, setLoading] = useState(initalLoading);
-    const changeLoading = (loading: boolean) => {
-        setLoading(loading);
-    };
-
-    return { loading, changeLoading };
-};
-
-export const loadingContainer = createContainer(useLoading);
+export { loadingContainer, localeContainer };

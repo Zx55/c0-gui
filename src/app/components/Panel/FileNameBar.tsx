@@ -1,5 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
+import { FormattedMessage } from 'react-intl';
 import { loadingContainer } from '../../containers';
 
 import Icon from 'antd/lib/icon';
@@ -40,7 +41,8 @@ export default (props: FileNameBarProps) => {
             }}
         >
             {
-                props.fileName === '' ? '点击添加文件' :
+                props.fileName === '' ?
+                <FormattedMessage id='app.compiling.addFile' /> :
                 <div>
                     <Icon
                         type='paper-clip'
@@ -64,7 +66,7 @@ export default (props: FileNameBarProps) => {
                                         marginLeft: 8,
                                     }}
                                 >
-                                    移除
+                                    <FormattedMessage id='app.compiling.removeFile' />
                                 </span>
                             </span>
                         }
