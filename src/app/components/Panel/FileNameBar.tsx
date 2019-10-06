@@ -42,7 +42,7 @@ export default (props: FileNameBarProps) => {
         >
             {
                 props.fileName === '' ?
-                <FormattedMessage id='app.compiling.addFile' /> :
+                <FormattedMessage id='compiling.addFile' /> :
                 <div>
                     <Icon
                         type='paper-clip'
@@ -66,7 +66,7 @@ export default (props: FileNameBarProps) => {
                                         marginLeft: 8,
                                     }}
                                 >
-                                    <FormattedMessage id='app.compiling.removeFile' />
+                                    <FormattedMessage id='compiling.removeFile' />
                                 </span>
                             </span>
                         }

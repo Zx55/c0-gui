@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './components';
-import { localeContainer } from './containers';
+import { configContainer } from './containers';
 
 
 const startApp = () => {
     ReactDOM.render(
-        <localeContainer.Provider>
+        <configContainer.Provider>
             <App />
-        </localeContainer.Provider>,
+        </configContainer.Provider>,
         document.getElementById('root')
     );
 };

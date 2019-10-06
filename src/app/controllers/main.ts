@@ -1,4 +1,4 @@
-import { ipcMain, dialog } from 'electron';
+import { ipcMain, dialog, shell } from 'electron';
 import { homedir } from 'os';
 import * as fs from 'fs';
 
@@ -14,12 +14,13 @@ export default () => {
         window.minimize();
     });
 
-    ipcMain.on('open-file-chooser', (event) => {
+    // 通过FileChooser选择文件 返回文件名
+    ipcMain.on('open-file-chooser', (event, title: string, format: string) => {
         dialog.showOpenDialog({
-            title: '选择c文件',
+            title: title,
             defaultPath: homedir(),
             filters: [
-                { name: 'c文件', extensions: ['c'] },
+                { name: format, extensions: ['c'] },
             ],
             properties: ['openFile'],
         }).then(({ filePaths }) => {
@@ -29,19 +30,25 @@ export default () => {
         }).catch((err) => console.log(err));
     });
 
+    // 根据fileName打开文件 返回读入代码
     ipcMain.on('read-file', (event, fileName: string) => {
         let channel = 'after-read-file';
 
         if (fs.existsSync(fileName)) {
             fs.readFile(fileName, { encoding: 'utf-8'}, (err, data) => {
                 if (err) {
-                    event.sender.send(channel, false, '文件打开失败');
+                    event.sender.send(channel, false, '0');
                 } else {
                     event.sender.send(channel, true, data.toString());
                 }
             })
         } else {
-            event.sender.send(channel, false, '文件不存在');
+            event.sender.send(channel, false, '1');
         }
+    });
+
+    // 打开GitHub仓库
+    ipcMain.on('open-repo', (event) => {
+        shell.openExternal('https://github.com/Zx55/c0-compiler');
     });
 };

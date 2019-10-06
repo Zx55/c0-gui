@@ -1,14 +1,15 @@
-import { resolve } from 'path';
+import { resolve, join } from 'path';
 import { cpus } from 'os';
 import { Configuration } from 'webpack';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import * as ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 
 const distPath = resolve(__dirname, '../dist');
 const sourcePath = resolve(__dirname, '../src');
 const configPath = resolve(__dirname);
+const modulesPath = resolve(__dirname, '../node_modules');
+const themePath = resolve(sourcePath, './app/theme');
 
 const config: Configuration = {
     mode: 'development',
@@ -19,6 +20,8 @@ const config: Configuration = {
             'react',
             'react-dom',
             'react-router-dom',
+            'use-react-router',
+            'react-intl',
             'unstated-next',
             'classnames',
             'rc-queue-anim',
@@ -61,15 +64,14 @@ const config: Configuration = {
                 enforce: 'pre',
             }, {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
-            }
+                use: ['style-loader', 'css-loader'],
+            }, {
+                test: /\.less$/,
+                use: ['style-loader', 'less-loader'],
+            },
         ]
     },
     plugins: [
-        //new ForkTsCheckerWebpackPlugin({
-        //    tsconfig: resolve(configPath, './tsconfig.json'),
-        //    checkSyntacticErrors: true,
-        //}),
         new HtmlWebpackPlugin({
             template: 'public/index.html',
             inject: 'body',

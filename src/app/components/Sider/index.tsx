@@ -75,35 +75,35 @@ export default () => {
                 <Menu.Item key='logo' disabled={loading}>
                     <Icon type='block' />
                     <FormattedMessage
-                        id='app.sider.title'
+                        id='sider.title'
                         tagName='span'
                     />
                 </Menu.Item>
                 <Menu.Item key='compile' disabled={loading}>
                     <Icon type='build' />
                     <FormattedMessage
-                        id='app.sider.compiling'
+                        id='sider.compiling'
                         tagName='span'
                     />
                 </Menu.Item>
                 <Menu.Item key='settings' disabled={loading}>
                     <Icon type='setting' />
                     <FormattedMessage
-                        id='app.sider.settings'
+                        id='sider.settings'
                         tagName='span'
                     />
                 </Menu.Item>
                 <Menu.Item key='manual' disabled={loading}>
                     <Icon type='read' />
                     <FormattedMessage
-                        id='app.sider.manual'
+                        id='sider.manual'
                         tagName='span'
                     />
                 </Menu.Item>
                 <Menu.Item key='about' disabled={loading}>
                     <Icon type='home' />
                     <FormattedMessage
-                        id='app.sider.about'
+                        id='sider.about'
                         tagName='span'
                     />
                 </Menu.Item>

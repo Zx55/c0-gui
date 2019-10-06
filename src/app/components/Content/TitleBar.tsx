@@ -1,11 +1,14 @@
 import React from 'react';
 import { ipcRenderer } from 'electron';
+import { useIntl } from 'react-intl';
 
 import Icon from 'antd/lib/icon';
 import Tooltip from 'antd/lib/tooltip';
 
 
 export default () => {
+    const intl = useIntl();
+
     return (
         <div
             className='title-bar'
@@ -33,7 +36,12 @@ export default () => {
                     width: '6%',
                 }}
             >
-                <Tooltip placement='bottom' title='最小化'>
+                <Tooltip
+                    placement='bottom'
+                    title={intl.formatMessage({
+                        id: 'titleBar.minimize'
+                    })}
+                >
                     <Icon
                         className='minimize-button'
                         type='minus'
@@ -43,7 +51,12 @@ export default () => {
                         onClick={() => ipcRenderer.send('minimize')}
                     />
                 </Tooltip>
-                <Tooltip placement='bottom' title='关闭'>
+                <Tooltip
+                    placement='bottom'
+                    title={intl.formatMessage({
+                        id: 'titleBar.close'
+                    })}
+                >
                     <Icon
                         className='close-button'
                         type='close'
@@ -52,5 +65,5 @@ export default () => {
                 </Tooltip>
             </div>
         </div>
-    )
-}
+    );
+};

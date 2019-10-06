@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
-import { loadingContainer, localeContainer } from '../containers';
-import zh_CH from '../../locale/zh_CH';
-import en_US from '../../locale/en_US';
+import { loadingContainer, configContainer } from '../containers';
+import zh_CH from '../locale/zh_CH';
+import en_US from '../locale/en_US';
 
 import Layout from 'antd/lib/layout';
 import Sider from './Sider';
@@ -12,7 +12,7 @@ import './App.css';
 
 
 export default () => {
-    const { locale } = localeContainer.useContainer();
+    const { locale } = configContainer.useContainer();
     const msgs = {
         'zh': zh_CH,
         'en': en_US,

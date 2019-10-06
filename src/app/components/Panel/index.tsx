@@ -26,7 +26,7 @@ export default () => {
             setFileName(fileName);
             message.destroy();
             message.success(intl.formatMessage({
-                id: 'app.compiling.addFile.success'
+                id: 'compiling.addFile.success'
             }));
         };
 
@@ -42,6 +42,7 @@ export default () => {
             }
 
             if (state) {
+                console.log(value);
                 // Fixme: see #2
                 const timer = setInterval(() => setPercent(percent => percent + 1), 100);
                 setTimeout(() => {
@@ -49,8 +50,17 @@ export default () => {
                     clearInterval(timer);
                 }, 10300);
             } else {
+                let msg: string;
+                switch (value) {
+                    case '0':
+                        msg = intl.formatMessage({ id: 'compiling.open.fail '});
+                        break;
+                    case '1':
+                        msg = intl.formatMessage({ id: 'compiling.open.notExist' });
+                }
+
                 message.destroy();
-                message.error(value);
+                message.error(msg);
             }
         };
 
@@ -58,6 +68,16 @@ export default () => {
 
         return () => ipcRenderer.removeListener('after-read-file', listener);
     }, [loading]);
+
+    const onChooseFile = () => {
+        const chooserTitle = intl.formatMessage({
+            id: 'compiling.open.chooser.title',
+        });
+        const chooserFormat = intl.formatMessage({
+            id: 'compiling.open.chooser.format',
+        });
+        ipcRenderer.send('open-file-chooser', chooserTitle, chooserFormat);
+    };
 
     const onDelete = () => {
         if (!loading) {
@@ -69,7 +89,7 @@ export default () => {
         if (fileName === '') {
             message.destroy();
             message.error(intl.formatMessage({
-                id: 'app.compiling.start.error.empty'
+                id: 'compiling.start.error.empty'
             }));
         } else {
             changeLoading(true);
@@ -101,7 +121,7 @@ export default () => {
                     width: 120,
                     height: 120,
                 }}
-                onClick={() => ipcRenderer.send('open-file-chooser')}
+                onClick={onChooseFile}
                 disabled={loading}
                 key='upload-button'
             >
@@ -128,8 +148,8 @@ export default () => {
                 >
                     {
                         loading ?
-                        <FormattedMessage id='app.compiling.stop' /> :
-                        <FormattedMessage id='app.compiling.start' />
+                        <FormattedMessage id='compiling.stop' /> :
+                        <FormattedMessage id='compiling.start' />
                     }
                 </Button>
             </div>

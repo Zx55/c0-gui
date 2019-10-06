@@ -1,5 +1,5 @@
 import loadingContainer from './loadingContainer';
-import localeContainer from './localeContainer';
+import  configContainer from './configContainer';
 
 
-export { loadingContainer, localeContainer };
+export { loadingContainer, configContainer };
