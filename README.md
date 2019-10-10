@@ -2,21 +2,51 @@
 
 A c language compiler with GUI based on TypeScript, Electron, React and antd.
 
-## Run GUI
+## Run in Docker container
+
+### Start container
 
 ```sh
-# Install dependencies
-cnpm install # or npm install
+docker pull lazymio/compilers-env
 
-yarn build # or npm run build
-yarn start # or npm run start
+# wait for downloading the image ...
+
+docker run -it lazymio/compilers-env /bin/sh
 ```
 
-## Run CLI
+### Install dependencies
 
-```sh {.line-numbers}
-cnpm install # or npm install
+```sh
+# use cnpm and yarn
+npm i -g cnpm --registry=https://registry.npm.taobao.org
+cnpm i -g yarn
 
+# clone repository
+cd /home
+git clone --depth=1 https://github.com/Zx55/c0-compiler.git
+
+# install dependencies
+# apt install libxss1
+
+cd c0-compile
+cnpm install
+```
+
+### Run GUI
+
+```sh
+yarn build
+
+# wait for building app ...
+
+yarn start
+# emmm... it doesn't work in container's command line because of no display
+# you have to connect docker to local display
+```
+
+### Run CLI
+
+```sh
 yarn cli <cFile> [...compileOptions]
 ```
 

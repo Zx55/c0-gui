@@ -7,7 +7,9 @@
   "scripts": {
     "build": "webpack --config ./config/webpack.config.ts",
     "cli": "cross-env TS_NODE_PROJECT=config/tsconfig.json ts-node ./src/c0/cli/index.ts",
-    "release": "electron-packager . C0Compiler --platform=win32 --arch=x64 --out=./release --asar --overwrite --ignore=node_modules --ignore=build --ignore=coverage --ignore=tests --ignore=.gitignore --ignore=yarn-error.log --ignore=config --ignore=README.md --ignore=LICENSE",
+    "release-win": "electron-packager . C0Compiler --platform=win32 --arch=x64 --out=./release --asar --overwrite --ignore=node_modules --ignore=build --ignore=coverage --ignore=tests --ignore=.gitignore --ignore=yarn-error.log --ignore=config --ignore=README.md --ignore=LICENSE",
+    "release-darwin": "echo 'no release version for mac now'",
+    "release-linux": "echo 'no release version for linux now'",
     "start": "electron .",
     "test": "jest --coverage --verbose --config ./config/jest.config.json"
   },
