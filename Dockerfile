@@ -9,14 +9,15 @@ LABEL \
 
 WORKDIR /
 
-# clone repo and install tools (cnpm)
+# clone repo, install tools (cnpm) and deps
 RUN git clone --depth=1 https://github.com/Zx55/c0-compiler.git && \
-    npm i -g cnpm --registry=https://registry.npm.taobao.org
+    npm i -g cnpm --registry=https://registry.npm.taobao.org && \
+    cd /c0-compiler && \
+    cnpm install
 
 WORKDIR /c0-compiler
 
 # build app
-RUN cnpm install && \
-    yarn build
+RUN yarn build
 
 CMD yarn start
