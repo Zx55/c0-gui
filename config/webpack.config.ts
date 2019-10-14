@@ -47,7 +47,6 @@ const config: Configuration = {
                         loader: 'thread-loader',
                         options: {
                             workers: cpus().length - 1,
-                            poolTimeout: Infinity,
                         },
                     }, {
                         loader: 'ts-loader',
