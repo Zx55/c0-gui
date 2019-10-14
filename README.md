@@ -2,52 +2,33 @@
 
 A c language compiler with GUI based on TypeScript, Electron, React and antd.
 
-## Run in Docker container
+## Run locally
 
-### Start container
+## Run from Docker container
 
-```sh
-docker pull lazymio/compilers-env
+### Pre-requisties
 
-# wait for downloading the image ...
+Install `X Server` for running GUI.
 
-docker run -it lazymio/compilers-env /bin/sh
-```
+* For windows 10 user, you can see this article [Run GUI app in linux docker container on windows host](https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde) and install `VcXsrv Windows X Server`
 
-### Install dependencies
+* For unix-like (like ubuntu)
 
-```sh
-# use cnpm and yarn
-npm i -g cnpm --registry=https://registry.npm.taobao.org
-cnpm i -g yarn
+    ```sh
+    sudo apt install x11-server-utils
+    xhost +
+    ```
 
-# clone repository
-cd /home
-git clone --depth=1 https://github.com/Zx55/c0-compiler.git
-
-# install dependencies
-# apt install libxss1
-
-cd c0-compile
-cnpm install
-```
-
-### Run GUI
+### Run c0
 
 ```sh
-yarn build
+docker pull zx55/c0-env
 
-# wait for building app ...
+# run GUI
+docker run -it --rm -e DISPLAY=host.docker.internal:0.0 zx55/c0-env
 
-yarn start
-# emmm... it doesn't work in container's command line because of no display
-# you have to connect docker to local display
-```
-
-### Run CLI
-
-```sh
-yarn cli <cFile> [...compileOptions]
+# run CLI
+docker run --rm zx55/c0-env yarn cli <cFile> [...compileOptions]
 ```
 
 see [compile options](./src/c0/README.md) for detail.
