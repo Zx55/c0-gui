@@ -1,4 +1,4 @@
-FROM node:10
+FROM dorowu/ubuntu-desktop-lxde-vnc:bionic-lxqt
 
 LABEL \
     version="0.0.0" \
@@ -9,15 +9,29 @@ LABEL \
 
 WORKDIR /
 
-# clone repo, install tools (cnpm) and deps
-RUN git clone --depth=1 https://github.com/Zx55/c0-compiler.git && \
+# install git and nodejs
+RUN sed -i "s/tw.archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g" etc/apt/sources.list && \
+    sed -i "s/security.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g" etc/apt/sources.list && \
+    apt update && \
+    apt install -y git gnupg2 && \
+    curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+    apt install -y nodejs && \
     npm i -g cnpm --registry=https://registry.npm.taobao.org && \
-    cd /c0-compiler && \
-    cnpm install
+    cnpm i -g yarn
 
-WORKDIR /c0-compiler
+WORKDIR /root/Desktop/
 
-# build app
-RUN yarn build
+COPY startup.sh .
 
-CMD yarn start
+# clone repo and install dependencies
+RUN chmod 777 startup.sh && \
+    git clone --depth=1 https://github.com/Zx55/c0-compiler.git && \
+    cd c0-compiler && \
+    cnpm install && \
+    yarn build
+
+WORKDIR /root/Desktop/c0-compiler
+
+EXPOSE 80
+
+ENTRYPOINT [ "/startup.sh" ]
