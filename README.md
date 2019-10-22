@@ -37,11 +37,16 @@ docker pull zx55/c0-env
 docker run -p 6080:80 -v /dev/shm:/dev/shm zx55/c0-env
 ```
 
-### Run GUI
-
 Browse http://127.0.0.1:6080/
+
+### Run GUI
 
 Open `startup.sh` on the Desktop and click execute
 
 ### Run CLI
 
+```sh {.line-numbers}
+cd ~/Desktop/c0-compiler
+cnpm install
+yarn cli
+```
