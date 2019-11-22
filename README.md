@@ -1,6 +1,6 @@
-# C0-Compiler
+# C0-GUI
 
-A c language compiler with GUI based on TypeScript, Electron, React and antd.
+A c language compiler GUI based on TypeScript, Electron, React and antd.
 
 ## Run locally
 
